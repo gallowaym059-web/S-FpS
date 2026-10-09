@@ -124,7 +124,7 @@ class $modify(ChangerBaseLayer, GJBaseGameLayer) {
 };
 
 // ======================= GUI =======================
-class ChangerPopup : public geode::Popup<> {
+class ChangerPopup : public geode::Popup {
 protected:
 	TextInput* m_tpsInput = nullptr;
 	TextInput* m_fpsInput = nullptr;
@@ -159,7 +159,8 @@ protected:
 		menu->addChild(btn);
 	}
 
-	bool setup() override {
+	bool init() {
+		if (!Popup::init(300.f, 230.f)) return false;
 		this->setTitle("TPS / FPS Changer");
 		auto size = m_mainLayer->getContentSize();
 		float cx = size.width / 2.f;
@@ -258,7 +259,7 @@ protected:
 public:
 	static ChangerPopup* create() {
 		auto ret = new ChangerPopup();
-		if (ret->initAnchored(300.f, 230.f)) {
+		if (ret->init()) {
 			ret->autorelease();
 			return ret;
 		}
