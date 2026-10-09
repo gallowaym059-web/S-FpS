@@ -1,0 +1,14 @@
+{
+	"geode": "4.0.0",
+	"gd": {
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081"
+	},
+	"id": "yourname.tps-fps-changer",
+	"name": "TPS/FPS Changer",
+	"version": "v1.1.0",
+	"developer": "yourname",
+	"description": "TPS changer, FPS changer, frame extrapolation and input delay in one simple menu."
+}
