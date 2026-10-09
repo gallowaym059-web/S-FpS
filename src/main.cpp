@@ -65,12 +65,12 @@ class $modify(ChangerBaseLayer, GJBaseGameLayer) {
 		if (std::abs(g_tps - 240.f) < 0.001f) {
 			return GJBaseGameLayer::getModifiedDelta(dt);
 		}
-		float modifier = std::min(1.f, m_gameState.m_timeWarp) / g_tps;
-		float total = dt + m_extraDelta;
+		double modifier = std::min(1.0, static_cast<double>(m_gameState.m_timeWarp)) / g_tps;
+		double total = static_cast<double>(dt) + m_extraDelta;
 		double steps = std::max(1.0, std::round(total / modifier));
-		float newDelta = static_cast<float>(steps) * modifier;
+		double newDelta = steps * modifier;
 		m_extraDelta = total - newDelta;
-		return newDelta;
+		return static_cast<float>(newDelta);
 	}
 
 	// --- Input delay: queue presses/releases and replay them later.
@@ -114,7 +114,7 @@ class $modify(ChangerBaseLayer, GJBaseGameLayer) {
 		// speed * leftover so motion looks smooth when FPS > TPS.
 		if (g_extrapolate && !m_isEditor && m_player1 && m_objectLayer
 			&& m_levelSettings && !m_levelSettings->m_platformerMode) {
-			float extra = std::clamp(m_extraDelta, -0.05f, 0.05f);
+			float extra = static_cast<float>(std::clamp<double>(m_extraDelta, -0.05, 0.05));
 			float vx = m_player1->m_playerSpeed * 346.2f * m_gameState.m_timeWarp;
 			g_extrapOffset = vx * extra;
 			m_objectLayer->setPositionX(m_objectLayer->getPositionX() - g_extrapOffset);
